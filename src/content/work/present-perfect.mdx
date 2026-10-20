@@ -1,0 +1,48 @@
+---
+title: PresentPerfect
+summary: A speech coach that watches a recorded talk and scores posture, gaze, expression and delivery.
+kind: Computer vision
+context: Team of 4
+period: Jun 2025
+order: 3
+featured: true
+status: prototype
+role: Posture and pose tracking, emotion training data, integration testing, project setup
+stack: [MediaPipe, YOLOv8, Whisper, GPT-4.1-nano, GPT-4o-mini, AWS Polly, Flask, React, Socket.IO]
+headline:
+  value: People's Choice
+  label: UTS Tech Festival AI Showcase 2025
+metrics:
+  - label: Recognition
+    value: People's Choice Award
+    conditions: UTS Tech Festival AI Showcase 2025
+  - label: Feedback dimensions
+    value: '6'
+    conditions: Scored per talk from video, pose and transcript signals
+lessons:
+  - Add a small set of hand-labelled clips to measure the posture and gesture detection, so improvements can be shown with numbers rather than demos.
+---
+
+## The problem
+
+Public speaking feedback usually depends on someone watching you and remembering what they saw. We wanted a tool that takes a recording of a talk and gives specific, timestamped feedback on how the speaker looked and sounded.
+
+## How it works
+
+The video goes through three analyses in parallel. YOLOv8 reads facial emotion, MediaPipe Pose tracks posture, gaze and gestures, and Whisper produces a timestamped transcript. GPT-4.1-nano combines these into structured feedback scored across six dimensions. Flask and React, connected with Socket.IO, show progress live while the video is processed.
+
+There's also an audio-only mode, which uses GPT-4o-mini to analyse speech quality and suggest rewrites of the transcript, and AWS Polly to read them back.
+
+<Diagram name="present-perfect.svg" alt="Architecture: a talk video is analysed in parallel for facial emotion with YOLOv8, posture and gestures with MediaPipe Pose, and a timestamped transcript with Whisper. GPT-4.1-nano turns these into a feedback report shown in a React UI. The posture module is highlighted as my part." />
+
+## My part
+
+<Note text="Highlighted in the diagram. The other analysis modules were built by teammates.">
+
+**Posture and pose tracking.** I built the module that uses MediaPipe Pose to measure shoulder tilt, movement across the stage, and hand gestures.
+
+</Note>
+
+**Training data for the emotion model.** I sourced and prepared the AffectNet dataset used to train the facial-emotion model.
+
+**Holding it together.** I set up the project environment and dependencies, and ran integration testing across the full pipeline.

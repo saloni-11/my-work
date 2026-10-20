@@ -1,0 +1,77 @@
+---
+title: AI/ML Study Companion
+summary: A chatbot that answers questions about nine landmark ML papers, and says so when the answer isn't in them.
+kind: RAG system
+context: Solo project
+period: Apr – Jun 2026
+order: 1
+featured: true
+status: in progress
+role: Everything, from corpus to deployment
+stack: [LlamaIndex, ChromaDB, Groq, sentence-transformers, RAGAS, FastAPI, React, Docker, GitHub Actions]
+headline:
+  value: 0.33 → 0.96
+  label: Hit@3 after my evaluation harness caught a stale vector index
+metrics:
+  - label: Faithfulness
+    value: '0.79'
+    conditions: Held-out set of 20 questions, scored by RAGAS with a separate 120B judge model
+  - label: Answer relevancy
+    value: '0.89'
+    conditions: Same held-out set
+  - label: Answerable questions wrongly refused
+    value: 0 of 12
+    conditions: Frozen 20-question held-out set
+  - label: Unanswerable questions refused
+    value: 6 of 8
+    conditions: Held-out set
+  - label: Hit@3 (retrieval)
+    value: 0.33 → 0.96
+    conditions: Before and after rebuilding the stale vector index
+  - label: Median latency
+    value: 1.1 s
+    conditions: End to end, measured locally within Groq's free-tier rate limit
+lessons:
+  - Grow the held-out set well beyond 20 questions. At that size a single answer moves the scores noticeably, which makes small prompt changes hard to compare.
+  - Check that the vector index matches the corpus automatically in CI, instead of relying on the evaluation run to notice when it doesn't.
+  - Push refusal further. Two of the eight unanswerable questions still got an answer, and for a study tool a confident wrong answer is worse than none.
+links:
+  - label: Try it on Hugging Face Spaces
+    href: https://huggingface.co/spaces/salonisamant01/study-companion
+---
+
+## The problem
+
+Research papers like *Attention Is All You Need* and *BERT* are dense, and a general chatbot will happily answer questions about them from memory, including when it's wrong. I wanted a study assistant that answers only from the papers themselves, shows where each answer came from, and refuses when the papers don't cover the question.
+
+## How it works
+
+<Note text="The index lives inside the image, so the app never starts with a missing or mismatched one.">
+
+The nine papers are split into 562 sentence-aware chunks of up to 512 tokens and embedded locally with sentence-transformers. The vector index is built when the Docker image is built, so every deployed copy ships with an index that matches the corpus.
+
+</Note>
+
+When a question comes in, it passes through three guardrails before anything is generated: a semantic check that it's about the corpus at all, a confidence threshold on what retrieval found, and a filter on the quality of the sources. Only then does GPT-OSS 20B, served through Groq, write an answer. The React front end shows the sources alongside the answer in real time.
+
+<Diagram name="study-companion.svg" alt="Architecture: papers are chunked, embedded and indexed at build time. Each question passes a scope filter, retrieval and quality checks before the LLM answers with sources; failed checks lead to a refusal. An evaluation harness scores the outputs." />
+
+## Key decisions
+
+<Note text="A separate held-out set keeps the reported numbers honest: they come from questions the thresholds weren't tuned on.">
+
+**Refuse rather than guess.** The guardrail thresholds were tuned by grid search, and the refusal results are reported on a separate, frozen held-out set of 20 questions.
+
+</Note>
+
+**A different model does the grading.** The evaluation harness runs offline retrieval and guardrail metrics, then scores answers with RAGAS using a separate 120B model as the judge, so the generator isn't marking its own work.
+
+**Tests and deploys on every push.** A GitHub Actions pipeline lints the code, runs 43 unit and integration tests, builds the Docker image and deploys it to Hugging Face Spaces whenever `main` changes.
+
+## What the evaluation caught
+
+<Note text="The held-out faithfulness is still 0.79, lower than the tuning-set figure. Closing that gap is what I'm working on now.">
+
+Two of the most useful results were problems, not scores. The harness showed retrieval was far worse than it should be; the cause was a stale vector index, and rebuilding it raised Hit@3 from 0.33 to 0.96. It also pointed to a prompt weakness, and fixing it lifted faithfulness from 0.79 to 0.90 on 16 paired tuning-set questions.
+
+</Note>

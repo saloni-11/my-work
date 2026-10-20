@@ -1,0 +1,113 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'work'>;
+}
+const { project } = Astro.props;
+const p = project.data;
+const href = `/work/${project.id}`;
+---
+
+<article class="row">
+  <div class="main">
+    <p class="meta">
+      {p.kind}, {p.context.charAt(0).toLowerCase() + p.context.slice(1)}
+      {p.status === 'in progress' && <span class="status">in progress</span>}
+    </p>
+    <h3><a href={href}>{p.title}</a></h3>
+    <p class="summary">{p.summary}</p>
+    <p class="stack">{p.stack.slice(0, 5).join(', ')}</p>
+  </div>
+  <p class="margin">
+    <mark>{p.headline.value}</mark>
+    <span>{p.headline.label}</span>
+  </p>
+</article>
+
+<style>
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, var(--measure)) var(--margin-col);
+    column-gap: var(--gutter);
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .row:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+  .meta {
+    font-size: 0.875rem;
+    color: var(--ink-faint);
+    margin-bottom: 0.35rem;
+  }
+  .status {
+    margin-left: 0.5rem;
+    padding: 0.05rem 0.5rem;
+    border: 1px solid var(--pen);
+    border-radius: 999px;
+    color: var(--pen);
+    font-size: 0.78rem;
+  }
+  h3 {
+    font-size: clamp(1.5rem, 3vw, 1.85rem);
+    margin-bottom: 0.4rem;
+  }
+  h3 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .row {
+    position: relative;
+  }
+  h3 a:hover,
+  .row:hover h3 a {
+    text-decoration: underline;
+    text-decoration-color: var(--pen);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+  }
+  .summary {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    margin-bottom: 0.6rem;
+  }
+  .stack {
+    font-size: 0.875rem;
+    color: var(--ink-faint);
+    margin: 0;
+  }
+  .margin {
+    margin: 0;
+    padding-top: 1.6rem;
+    font-family: var(--serif);
+    font-size: 0.98rem;
+    line-height: 1.4;
+    color: var(--ink-soft);
+  }
+  .margin mark {
+    display: inline-block;
+    font-size: 1.6rem;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+  }
+  .margin span {
+    display: block;
+  }
+  @media (max-width: 52rem) {
+    .row {
+      grid-template-columns: 1fr;
+    }
+    .margin {
+      padding-top: 0.9rem;
+    }
+  }
+</style>

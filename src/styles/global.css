@@ -1,0 +1,162 @@
+@import '@fontsource-variable/newsreader/opsz.css';
+@import '@fontsource-variable/newsreader/opsz-italic.css';
+@import '@fontsource-variable/hanken-grotesk';
+@import '@fontsource/kalam/400.css';
+
+/* ---------- Tokens ---------- */
+:root {
+  --paper: #f6f7f4;
+  --paper-raised: #ffffff;
+  --ink: #1b2333;
+  --ink-soft: #4b5566;
+  --ink-faint: #6b7586;
+  --rule: #dce1e8;
+  --pen: #2348b8;
+  --highlight: #e8f07a;
+  --tape: rgba(214, 205, 150, 0.6);
+
+  --serif: 'Newsreader Variable', 'Iowan Old Style', Georgia, serif;
+  --sans: 'Hanken Grotesk Variable', system-ui, sans-serif;
+  --hand: 'Kalam', 'Segoe Print', cursive;
+
+  --measure: 38rem;
+  --margin-col: 14rem;
+  --gutter: 2.5rem;
+  --page: calc(var(--measure) + var(--margin-col) + var(--gutter));
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #121722;
+    --paper-raised: #1a2130;
+    --ink: #e6e9ef;
+    --ink-soft: #b0b8c6;
+    --ink-faint: #8a94a5;
+    --rule: #2a3344;
+    --pen: #93b2ff;
+    --highlight: rgba(216, 232, 92, 0.28);
+    --tape: rgba(190, 180, 130, 0.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme='dark'] {
+  --paper: #121722;
+  --paper-raised: #1a2130;
+  --ink: #e6e9ef;
+  --ink-soft: #b0b8c6;
+  --ink-faint: #8a94a5;
+  --rule: #2a3344;
+  --pen: #93b2ff;
+  --highlight: rgba(216, 232, 92, 0.28);
+  --tape: rgba(190, 180, 130, 0.35);
+  color-scheme: dark;
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+a {
+  color: var(--pen);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+:focus-visible {
+  outline: 2px solid var(--pen);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  font-weight: 450;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+p {
+  margin: 0 0 1em;
+}
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0.5rem;
+  background: var(--paper-raised);
+  padding: 0.5rem 0.75rem;
+  z-index: 10;
+}
+.skip-link:focus {
+  left: 1rem;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.wrap {
+  max-width: var(--page);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+/* The one recurring mark: a highlighter swipe over numbers that matter. */
+mark,
+.hl {
+  background: linear-gradient(
+    100deg,
+    transparent 0.15em,
+    var(--highlight) 0.3em,
+    var(--highlight) calc(100% - 0.3em),
+    transparent calc(100% - 0.1em)
+  );
+  color: inherit;
+  padding: 0.02em 0.35em;
+  margin: 0 -0.15em;
+  border-radius: 0.3em 0.5em 0.35em 0.6em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.small {
+  font-size: 0.875rem;
+  color: var(--ink-faint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

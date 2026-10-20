@@ -1,0 +1,45 @@
+---
+// A margin note attached to the paragraph(s) it wraps:
+//
+//   <Note text="Why I chose X over Y.">
+//
+//   The paragraph the note is about.
+//
+//   </Note>
+//
+// Wide screens: the note sits in the right margin, level with the paragraph.
+// Narrow screens: it follows the paragraph inline.
+interface Props {
+  text: string;
+}
+const { text } = Astro.props;
+---
+
+<div class="annotated">
+  <slot />
+  <aside class="note">{text}</aside>
+</div>
+
+<style>
+  .annotated {
+    position: relative;
+  }
+  .note {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    border-left: 2px solid var(--pen);
+    padding: 0.1rem 0 0.1rem 0.85rem;
+    margin: -0.25rem 0 1.4rem;
+  }
+  @media (min-width: 62rem) {
+    .note {
+      position: absolute;
+      top: 0.3rem;
+      left: calc(100% + var(--gutter));
+      width: var(--margin-col);
+      margin: 0;
+    }
+  }
+</style>

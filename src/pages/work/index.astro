@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ProjectRow from '../../components/ProjectRow.astro';
+
+const projects = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base title="Work" description="Case studies of LLM, RAG and machine learning systems I've built.">
+  <section class="wrap">
+    <h1>Work</h1>
+    <p class="intro">
+      Each project is written up the same way: the problem, how it's built, the decisions that
+      mattered, what I measured, and what I'd change.
+    </p>
+    <div class="list">
+      {projects.map((project) => <ProjectRow project={project} />)}
+    </div>
+  </section>
+</Base>
+
+<style>
+  section {
+    padding-top: 1.5rem;
+  }
+  h1 {
+    font-size: clamp(2.3rem, 5vw, 3.2rem);
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+  }
+  .intro {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    color: var(--ink-soft);
+    max-width: var(--measure);
+    margin-bottom: 2.5rem;
+  }
+</style>

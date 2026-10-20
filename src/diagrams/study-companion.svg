@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400">
+  <defs>
+    <marker id="sc-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow" d="M0 0L10 5L0 10z"/></marker>
+    <marker id="sc-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow-pen" d="M0 0L10 5L0 10z"/></marker>
+  </defs>
+
+  <rect class="group" x="10" y="10" width="740" height="100" rx="8"/>
+  <text class="sub" x="24" y="30">Once, when the Docker image is built</text>
+
+  <rect class="box" x="30" y="45" width="160" height="50" rx="5"/>
+  <text class="label" x="110" y="66" text-anchor="middle">9 ML papers</text>
+  <text class="sub" x="110" y="83" text-anchor="middle">curated corpus</text>
+
+  <rect class="box" x="215" y="45" width="160" height="50" rx="5"/>
+  <text class="label" x="295" y="66" text-anchor="middle">Sentence-aware chunks</text>
+  <text class="sub" x="295" y="83" text-anchor="middle">562 × 512 tokens</text>
+
+  <rect class="box" x="400" y="45" width="160" height="50" rx="5"/>
+  <text class="label" x="480" y="66" text-anchor="middle">Local embeddings</text>
+  <text class="sub" x="480" y="83" text-anchor="middle">sentence-transformers</text>
+
+  <rect class="box" x="585" y="45" width="160" height="50" rx="5"/>
+  <text class="label" x="665" y="66" text-anchor="middle">Vector index</text>
+  <text class="sub" x="665" y="83" text-anchor="middle">ChromaDB via LlamaIndex</text>
+
+  <path class="line" d="M190 70H213" marker-end="url(#sc-a)"/>
+  <path class="line" d="M375 70H398" marker-end="url(#sc-a)"/>
+  <path class="line" d="M560 70H583" marker-end="url(#sc-a)"/>
+
+  <text class="sub" x="20" y="150">For every question</text>
+
+  <rect class="box" x="20" y="160" width="110" height="52" rx="5"/>
+  <text class="label" x="75" y="182" text-anchor="middle">Question</text>
+  <text class="sub" x="75" y="199" text-anchor="middle">React UI</text>
+
+  <rect class="box" x="145" y="160" width="110" height="52" rx="5"/>
+  <text class="label" x="200" y="182" text-anchor="middle">Scope filter</text>
+  <text class="sub" x="200" y="199" text-anchor="middle">guardrail 1</text>
+
+  <rect class="box" x="270" y="160" width="110" height="52" rx="5"/>
+  <text class="label" x="325" y="182" text-anchor="middle">Retrieve</text>
+  <text class="sub" x="325" y="199" text-anchor="middle">top-k chunks</text>
+
+  <rect class="box" x="395" y="160" width="110" height="52" rx="5"/>
+  <text class="label" x="450" y="182" text-anchor="middle">Quality checks</text>
+  <text class="sub" x="450" y="199" text-anchor="middle">guardrails 2 and 3</text>
+
+  <rect class="box" x="520" y="160" width="110" height="52" rx="5"/>
+  <text class="label" x="575" y="182" text-anchor="middle">GPT-OSS 20B</text>
+  <text class="sub" x="575" y="199" text-anchor="middle">via Groq</text>
+
+  <rect class="box" x="645" y="160" width="105" height="52" rx="5"/>
+  <text class="label" x="697" y="182" text-anchor="middle">Answer</text>
+  <text class="sub" x="697" y="199" text-anchor="middle">with sources</text>
+
+  <path class="line" d="M130 186H143" marker-end="url(#sc-a)"/>
+  <path class="line" d="M255 186H268" marker-end="url(#sc-a)"/>
+  <path class="line" d="M380 186H393" marker-end="url(#sc-a)"/>
+  <path class="line" d="M505 186H518" marker-end="url(#sc-a)"/>
+  <path class="line" d="M630 186H643" marker-end="url(#sc-a)"/>
+
+  <path class="line" d="M665 95V128H325V158" marker-end="url(#sc-a)"/>
+
+  <rect class="box" x="170" y="262" width="200" height="44" rx="5"/>
+  <text class="label" x="270" y="281" text-anchor="middle">Refusal</text>
+  <text class="sub" x="270" y="297" text-anchor="middle">says it can't answer from the papers</text>
+  <path class="dash" d="M200 212V260" marker-end="url(#sc-p)"/>
+  <path class="dash" d="M450 212V236H330V260" marker-end="url(#sc-p)"/>
+  <text class="hand" x="210" y="244">out of scope</text>
+  <text class="hand" x="345" y="254">weak evidence</text>
+
+  <rect class="box" x="470" y="330" width="280" height="54" rx="5"/>
+  <text class="label" x="610" y="352" text-anchor="middle">Evaluation harness</text>
+  <text class="sub" x="610" y="370" text-anchor="middle">retrieval metrics + RAGAS, 120B judge model</text>
+  <path class="dash" d="M575 212V328" marker-end="url(#sc-p)"/>
+  <text class="hand" x="225" y="362">this is what caught the stale index</text>
+  <path class="dash" d="M440 357H468" marker-end="url(#sc-p)"/>
+</svg>
