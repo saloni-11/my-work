@@ -1,0 +1,24 @@
+{
+  "name": "saloni-portfolio",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "photo": "node scripts/prepare-photo.mjs"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^8.0.3",
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/hanken-grotesk": "^5.3.0",
+    "@fontsource-variable/newsreader": "^5.3.0",
+    "@fontsource/kalam": "^5.3.0",
+    "astro": "^7.3.8"
+  },
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  }
+}

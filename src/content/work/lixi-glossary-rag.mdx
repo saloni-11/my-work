@@ -1,0 +1,59 @@
+---
+title: Lending glossary RAG pipeline
+summary: Drafting grounded, cited definitions for an 811-term lending glossary, entirely on-device.
+kind: RAG system
+context: At LIXI
+period: 2025 – 2026
+order: 2
+featured: true
+status: shipped
+role: Built the pipeline, the checks and the desktop app
+stack: [Python, sentence-transformers, NumPy, scikit-learn, Llama 3 8B, Ollama, Tkinter]
+headline:
+  value: '61'
+  label: terms with more than one meaning, flagged automatically for review
+metrics:
+  - label: Definition length
+    value: all under 50 words
+    conditions: Automated check on the first 100 terms (mean 26 words)
+  - label: Refusal or boilerplate phrases
+    value: none found
+    conditions: Same 100 terms
+  - label: Multi-sense terms flagged
+    value: '61'
+    conditions: Agglomerative clustering of each term's definition embeddings
+  - label: Factual errors, outdated references, wrong issuers
+    value: caught and fixed
+    conditions: Manual spot check, before the drafts went to expert review
+lessons:
+  - Start with a small set of expert-checked definitions so factual accuracy can be measured automatically. The automated checks passed definitions that the manual review later had to correct.
+  - Record which source each correction traced back to, to see whether particular sources tend to produce outdated references.
+---
+
+## The problem
+
+LIXI publishes the data standards that Australian banks, brokers and lenders use to exchange loan information. Its lending glossary of 811 terms had been curated by hand over time, and had duplicate terms and missing definitions.
+
+## How it works
+
+I built a retrieval-augmented pipeline that drafts a definition for each term, grounded in 15 authoritative sources including the ATO, ASIC, APRA and the RBA.
+
+<Note text="Running on-device was a data privacy decision: nothing is sent to an outside API.">
+
+Everything runs on one machine. Sources are embedded locally with sentence-transformers (all-MiniLM-L6-v2), the top five passages for each term are found with cosine similarity over NumPy arrays, and Llama 3 8B, running through Ollama, writes the draft. The whole thing is packaged as a Tkinter desktop app.
+
+</Note>
+
+<Diagram name="lixi-glossary.svg" alt="Architecture: sources are embedded locally into a source index. Each glossary term retrieves its top five passages by cosine search, Llama 3 8B drafts a cited definition, and drafts pass automated checks, a manual spot check and then expert review." />
+
+## Key decisions
+
+**Every definition traces back to a source.** Prompt guardrails enforce source grounding and citation constraints, and the output is validated, so a reviewer can check each definition against where it came from.
+
+<Note text="A flagged term needs a human decision about which sense the glossary means, so these went to review rather than being resolved by the model.">
+
+**Find the ambiguous terms automatically.** Some lending terms mean different things in different contexts. Clustering each term's definition embeddings, with average-linkage agglomerative clustering on a cosine-distance threshold, flagged 61 terms that likely have more than one sense.
+
+</Note>
+
+**Automated checks first, then a person.** A script checked the first 100 definitions for length, refusal and boilerplate phrases, how closely each definition matched its term, and how much it duplicated the retrieved source text. A manual spot check then caught what the automated checks couldn't: factual errors, outdated references and wrong issuers. I corrected these and handed the output over as drafts for expert review.

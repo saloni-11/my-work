@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300">
+  <defs>
+    <marker id="pp-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow" d="M0 0L10 5L0 10z"/></marker>
+  </defs>
+
+  <rect class="box" x="20" y="120" width="130" height="52" rx="5"/>
+  <text class="label" x="85" y="142" text-anchor="middle">Talk video</text>
+  <text class="sub" x="85" y="159" text-anchor="middle">uploaded by speaker</text>
+
+  <rect class="box" x="210" y="30" width="200" height="52" rx="5"/>
+  <text class="label" x="310" y="52" text-anchor="middle">Facial emotion</text>
+  <text class="sub" x="310" y="69" text-anchor="middle">YOLOv8 on AffectNet</text>
+
+  <rect class="box-mine" x="210" y="120" width="200" height="52" rx="5"/>
+  <text class="label" x="310" y="142" text-anchor="middle">Posture, gaze and gestures</text>
+  <text class="sub" x="310" y="159" text-anchor="middle">MediaPipe Pose</text>
+
+  <rect class="box" x="210" y="210" width="200" height="52" rx="5"/>
+  <text class="label" x="310" y="232" text-anchor="middle">Timestamped transcript</text>
+  <text class="sub" x="310" y="249" text-anchor="middle">Whisper</text>
+
+  <rect class="box" x="470" y="120" width="170" height="52" rx="5"/>
+  <text class="label" x="555" y="142" text-anchor="middle">Feedback report</text>
+  <text class="sub" x="555" y="159" text-anchor="middle">GPT-4.1-nano, 6 scores</text>
+
+  <rect class="box" x="665" y="120" width="90" height="52" rx="5"/>
+  <text class="label" x="710" y="142" text-anchor="middle">React UI</text>
+  <text class="sub" x="710" y="159" text-anchor="middle">live progress</text>
+
+  <path class="line" d="M150 146H180V56H208" marker-end="url(#pp-a)"/>
+  <path class="line" d="M180 146H208" marker-end="url(#pp-a)"/>
+  <path class="line" d="M180 146V236H208" marker-end="url(#pp-a)"/>
+  <path class="line" d="M410 56H440V146" />
+  <path class="line" d="M410 236H440V146" />
+  <path class="line" d="M410 146H468" marker-end="url(#pp-a)"/>
+  <path class="line" d="M640 146H663" marker-end="url(#pp-a)"/>
+
+  <text class="hand" x="425" y="44">I sourced and prepared this training data</text>
+
+  <rect class="box-mine" x="20" y="276" width="16" height="12" rx="2"/>
+  <text class="sub" x="44" y="286">built by me; the rest by teammates</text>
+</svg>

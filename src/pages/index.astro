@@ -1,0 +1,115 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Portrait from '../components/Portrait.astro';
+import ProjectRow from '../components/ProjectRow.astro';
+import Wave from '../components/Wave.astro';
+import { site } from '../site';
+
+const featured = (await getCollection('work', ({ data }) => data.featured)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<Base>
+  <section class="hero wrap">
+    <Portrait />
+    <div class="intro">
+      <h1>{site.statement}</h1>
+      <p class="role">
+        {site.role}, {site.location}.<br />
+        {site.workRights}
+      </p>
+      <ul class="contact">
+        <li><a href={`mailto:${site.links.email}`}>Email me</a></li>
+        <li><a href={site.links.linkedin} rel="me">LinkedIn</a></li>
+        <li><a href={site.links.github} rel="me">GitHub</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="wrap"><Wave /></div>
+
+  <section class="work wrap" aria-labelledby="selected-work">
+    <div class="section-head">
+      <h2 id="selected-work">Selected work</h2>
+      <a href="/work">All projects</a>
+    </div>
+    {featured.map((project) => <ProjectRow project={project} />)}
+  </section>
+
+  <section class="now wrap" aria-labelledby="now">
+    <h2 id="now">Right now</h2>
+    <ul>
+      {site.now.map((line) => <li>{line}</li>)}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: 13rem minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: center;
+    padding-top: 2.5rem;
+  }
+  h1 {
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+    line-height: 1.16;
+    font-weight: 400;
+    max-width: 22em;
+    margin-bottom: 1.5rem;
+    text-wrap: balance;
+  }
+  .role {
+    color: var(--ink-soft);
+    max-width: 34rem;
+  }
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+  }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    max-width: var(--page);
+    margin-bottom: 1.25rem;
+  }
+  h2 {
+    font-size: 1.6rem;
+  }
+  .now {
+    margin-top: 4rem;
+  }
+  .now h2 {
+    margin-bottom: 0.75rem;
+  }
+  .now ul {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    padding-left: 1.1rem;
+    margin: 0;
+    max-width: var(--measure);
+  }
+  .now li::marker {
+    color: var(--pen);
+  }
+  @media (max-width: 44rem) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 2.25rem;
+      padding-top: 1rem;
+    }
+    .hero :global(.snapshot) {
+      max-width: 10rem;
+      margin-left: 0.5rem;
+    }
+  }
+</style>

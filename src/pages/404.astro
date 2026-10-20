@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Page not found">
+  <section class="wrap">
+    <h1>This page doesn’t exist</h1>
+    <p>The link may be old, or the project may have moved. Try the <a href="/work">list of projects</a> or go back to the <a href="/">home page</a>.</p>
+  </section>
+</Base>
+
+<style>
+  section {
+    padding-top: 3rem;
+    max-width: calc(var(--measure) + 2.5rem);
+  }
+  h1 {
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+  p {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+  }
+</style>

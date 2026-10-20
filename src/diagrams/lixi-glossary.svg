@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330">
+  <defs>
+    <marker id="lg-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow" d="M0 0L10 5L0 10z"/></marker>
+  </defs>
+
+  <rect class="group" x="10" y="10" width="740" height="210" rx="8"/>
+  <text class="sub" x="24" y="30">On-device, packaged as a desktop app. No data leaves the machine.</text>
+
+  <rect class="box" x="30" y="45" width="190" height="52" rx="5"/>
+  <text class="label" x="125" y="67" text-anchor="middle">15 authoritative sources</text>
+  <text class="sub" x="125" y="84" text-anchor="middle">incl. ATO, ASIC, APRA, RBA</text>
+
+  <rect class="box" x="250" y="45" width="160" height="52" rx="5"/>
+  <text class="label" x="330" y="67" text-anchor="middle">Local embeddings</text>
+  <text class="sub" x="330" y="84" text-anchor="middle">all-MiniLM-L6-v2</text>
+
+  <rect class="box" x="440" y="45" width="150" height="52" rx="5"/>
+  <text class="label" x="515" y="67" text-anchor="middle">Source index</text>
+  <text class="sub" x="515" y="84" text-anchor="middle">NumPy arrays</text>
+
+  <rect class="box" x="620" y="45" width="120" height="52" rx="5"/>
+  <text class="label" x="680" y="67" text-anchor="middle">Sense clusters</text>
+  <text class="sub" x="680" y="84" text-anchor="middle">61 terms flagged</text>
+
+  <path class="line" d="M220 71H248" marker-end="url(#lg-a)"/>
+  <path class="line" d="M410 71H438" marker-end="url(#lg-a)"/>
+  <path class="line" d="M590 71H618" marker-end="url(#lg-a)"/>
+
+  <rect class="box" x="30" y="145" width="160" height="52" rx="5"/>
+  <text class="label" x="110" y="167" text-anchor="middle">Glossary term</text>
+  <text class="sub" x="110" y="184" text-anchor="middle">one of 811</text>
+
+  <rect class="box" x="250" y="145" width="160" height="52" rx="5"/>
+  <text class="label" x="330" y="167" text-anchor="middle">Cosine search</text>
+  <text class="sub" x="330" y="184" text-anchor="middle">top-5 passages</text>
+
+  <rect class="box" x="440" y="145" width="150" height="52" rx="5"/>
+  <text class="label" x="515" y="167" text-anchor="middle">Llama 3 8B</text>
+  <text class="sub" x="515" y="184" text-anchor="middle">via Ollama, guardrails</text>
+
+  <rect class="box" x="620" y="145" width="120" height="52" rx="5"/>
+  <text class="label" x="680" y="167" text-anchor="middle">Draft definition</text>
+  <text class="sub" x="680" y="184" text-anchor="middle">with citations</text>
+
+  <path class="line" d="M190 171H248" marker-end="url(#lg-a)"/>
+  <path class="line" d="M410 171H438" marker-end="url(#lg-a)"/>
+  <path class="line" d="M590 171H618" marker-end="url(#lg-a)"/>
+  <path class="line" d="M515 97V121H330V143" marker-end="url(#lg-a)"/>
+
+  <text class="sub" x="24" y="250">Then checked, in this order</text>
+  <rect class="box" x="440" y="262" width="150" height="52" rx="5"/>
+  <text class="label" x="515" y="284" text-anchor="middle">Automated checks</text>
+  <text class="sub" x="515" y="301" text-anchor="middle">first 100 terms</text>
+
+  <rect class="box" x="250" y="262" width="160" height="52" rx="5"/>
+  <text class="label" x="330" y="284" text-anchor="middle">Manual spot check</text>
+  <text class="sub" x="330" y="301" text-anchor="middle">errors corrected</text>
+
+  <rect class="box" x="30" y="262" width="160" height="52" rx="5"/>
+  <text class="label" x="110" y="284" text-anchor="middle">Expert review</text>
+  <text class="sub" x="110" y="301" text-anchor="middle">drafts, not final text</text>
+
+  <path class="line" d="M680 197V288H592" marker-end="url(#lg-a)"/>
+  <path class="line" d="M440 288H412" marker-end="url(#lg-a)"/>
+  <path class="line" d="M250 288H192" marker-end="url(#lg-a)"/>
+</svg>

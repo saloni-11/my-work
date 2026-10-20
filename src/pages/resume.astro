@@ -1,0 +1,49 @@
+---
+import fs from 'node:fs';
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+
+const hasPdf = fs.existsSync(new URL('../../public/resume.pdf', import.meta.url));
+---
+
+<Base title="Resume" description={`Resume of ${site.name}.`}>
+  <section class="wrap">
+    <h1>Resume</h1>
+    {
+      hasPdf ? (
+        <p class="lede">
+          <a href={site.resumePath} download="Saloni_Samant_Resume.pdf">Download my resume (PDF)</a>
+          <span class="small"> Last updated {site.resumeUpdated}.</span>
+        </p>
+      ) : (
+        <p class="lede">My resume is being updated. Email me at <a href={`mailto:${site.links.email}`}>{site.links.email}</a> for the latest copy.</p>
+      )
+    }
+    <p>
+      For the short version: I’m an AI engineer with 3+ years building LLM applications, RAG
+      pipelines and production ML systems in financial services. The <a href="/work">work</a> page
+      has the details behind each project, and <a href="/about">about</a> has my experience and
+      education.
+    </p>
+  </section>
+</Base>
+
+<style>
+  section {
+    padding-top: 1.5rem;
+    max-width: calc(var(--measure) + 2.5rem);
+  }
+  h1 {
+    font-size: clamp(2.3rem, 5vw, 3.2rem);
+    font-weight: 400;
+    margin-bottom: 1.25rem;
+  }
+  .lede {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+  }
+  p {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+  }
+</style>

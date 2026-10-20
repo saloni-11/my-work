@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+.env*
+
+# Keep original photos out of the repo. Only src/assets/portrait.jpg,
+# made by `npm run photo`, should be committed.
+*.heic
+*.HEIC
+originals/
+
+# AI assistant notes and settings: local only, never committed.
+claude.md
+CLAUDE.md
+CLAUDE.local.md
+.claude/
