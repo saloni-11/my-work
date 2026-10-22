@@ -73,12 +73,12 @@ The repo has to be public for free GitHub Pages, so everything in it is visible 
 2. In the repo: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 3. Every push to `main` now builds and deploys via `.github/workflows/deploy.yml`. Watch it under the **Actions** tab.
 
-## Custom domain (salonisamant.dev on Cloudflare)
+## Custom domain (salonisamant.com)
 
-`site` in `astro.config.mjs` and the `Sitemap:` line in `public/robots.txt` are already set to `https://salonisamant.dev`. No `CNAME` file is needed: with GitHub Actions deploys, the domain is set in the repo settings instead.
+`site` in `astro.config.mjs` and the `Sitemap:` line in `public/robots.txt` are already set to `https://salonisamant.com`. No `CNAME` file is needed: with GitHub Actions deploys, the domain is set in the repo settings instead.
 
-1. **Verify the domain with GitHub first.** In your GitHub account (not the repo): **Settings → Pages → Add a domain**. GitHub gives you a `TXT` record; add it in Cloudflare and click **Verify**. This stops anyone else from claiming your domain on GitHub.
-2. **Add DNS records in Cloudflare** (**DNS → Records**). Set every record's proxy status to **DNS only** (grey cloud), or GitHub can't issue the HTTPS certificate.
+1. **Verify the domain with GitHub first.** In your GitHub account (not the repo): **Settings → Pages → Add a domain**. GitHub gives you a `TXT` record; add it at your DNS provider and click **Verify**. This stops anyone else from claiming your domain on GitHub.
+2. **Add DNS records at your DNS provider.** If you use Cloudflare, set every record's proxy status to **DNS only** (grey cloud), or GitHub can't issue the HTTPS certificate.
 
    | Type | Name | Content |
    |---|---|---|
@@ -88,6 +88,6 @@ The repo has to be public for free GitHub Pages, so everything in it is visible 
    | A | `@` | `185.199.111.153` |
    | CNAME | `www` | `saloni-11.github.io` |
 
-3. In the repo: **Settings → Pages → Custom domain**, enter `salonisamant.dev` and save. When the DNS check passes, tick **Enforce HTTPS**.
+3. In the repo: **Settings → Pages → Custom domain**, enter `salonisamant.com` and save. When the DNS check passes, tick **Enforce HTTPS**.
 
-`.dev` domains only work over HTTPS, so the site won't open at the new address until GitHub has issued the certificate. That usually takes minutes, occasionally up to a day.
+The **Enforce HTTPS** box stays greyed out until GitHub has issued the certificate. That usually takes minutes, occasionally up to a day.
