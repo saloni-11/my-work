@@ -17,12 +17,16 @@ const href = `/work/${project.id}`;
     </p>
     <h3><a href={href}>{p.title}</a></h3>
     <p class="summary">{p.summary}</p>
-    <p class="stack">{p.stack.slice(0, 5).join(', ')}</p>
+    {p.stack.length > 0 && <p class="stack">{p.stack.slice(0, 5).join(', ')}</p>}
   </div>
-  <p class="margin">
-    <mark>{p.headline.value}</mark>
-    <span>{p.headline.label}</span>
-  </p>
+  {
+    p.headline && (
+      <p class="margin">
+        <mark>{p.headline.value}</mark>
+        <span>{p.headline.label}</span>
+      </p>
+    )
+  }
 </article>
 
 <style>

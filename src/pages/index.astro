@@ -1,9 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import Portrait from '../components/Portrait.astro';
-import ProjectRow from '../components/ProjectRow.astro';
-import Wave from '../components/Wave.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import { site } from '../site';
 
 const featured = (await getCollection('work', ({ data }) => data.featured)).sort(
@@ -11,105 +9,171 @@ const featured = (await getCollection('work', ({ data }) => data.featured)).sort
 );
 ---
 
-<Base>
-  <section class="hero wrap">
-    <Portrait />
-    <div class="intro">
-      <h1>{site.statement}</h1>
-      <p class="role">
-        {site.role}, {site.location}.<br />
-        {site.workRights}
-      </p>
-      <ul class="contact">
-        <li><a href={`mailto:${site.links.email}`}>Email me</a></li>
-        <li><a href={site.links.linkedin} rel="me">LinkedIn</a></li>
-        <li><a href={site.links.github} rel="me">GitHub</a></li>
-      </ul>
+<Base hideName>
+  <section class="intro wrap">
+    <div class="name-row">
+      <h1>{site.name}</h1>
+      <a class="pill" href="#contact">Get in touch</a>
     </div>
+    <p class="bio">{site.statement}</p>
   </section>
 
-  <div class="wrap"><Wave /></div>
-
-  <section class="work wrap" aria-labelledby="selected-work">
-    <div class="section-head">
-      <h2 id="selected-work">Selected work</h2>
-      <a href="/work">All projects</a>
-    </div>
-    {featured.map((project) => <ProjectRow project={project} />)}
+  <section class="work wrap" aria-labelledby="work-heading">
+    <h2 id="work-heading">My top work</h2>
+    <ul class="cards">
+      {featured.map((project, i) => <li><ProjectCard project={project} eager={i === 0} /></li>)}
+    </ul>
   </section>
 
-  <section class="now wrap" aria-labelledby="now">
-    <h2 id="now">Right now</h2>
-    <ul>
-      {site.now.map((line) => <li>{line}</li>)}
+  <section class="experience wrap" aria-labelledby="experience-heading">
+    <h2 id="experience-heading">Experience</h2>
+    <ul class="rows">
+      {
+        site.experience.map((job) => (
+          <li>
+            <span class="when">{job.when}</span>
+            <span class="what">{job.what}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="more"><a href="/about">More about me</a></p>
+  </section>
+
+  <section id="contact" class="contact wrap" aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Contact</h2>
+    <p>Email is the best way to reach me.</p>
+    <p class="email"><a href={`mailto:${site.links.email}`}>{site.links.email}</a></p>
+    <ul class="links">
+      <li><a href={site.links.linkedin} rel="me">LinkedIn</a></li>
+      <li><a href={site.links.github} rel="me">GitHub</a></li>
     </ul>
   </section>
 </Base>
 
 <style>
-  .hero {
-    display: grid;
-    grid-template-columns: 13rem minmax(0, 1fr);
-    gap: 3.5rem;
-    align-items: center;
-    padding-top: 2.5rem;
+  .intro {
+    padding-top: 1.5rem;
   }
-  h1 {
-    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
-    line-height: 1.16;
-    font-weight: 400;
-    max-width: 22em;
-    margin-bottom: 1.5rem;
-    text-wrap: balance;
-  }
-  .role {
-    color: var(--ink-soft);
-    max-width: 34rem;
-  }
-  .contact {
+  .name-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem 1.5rem;
-    list-style: none;
-    padding: 0;
-    margin: 1.5rem 0 0;
-  }
-  .section-head {
-    display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: baseline;
-    max-width: var(--page);
+    gap: 1rem 2rem;
     margin-bottom: 1.25rem;
   }
-  h2 {
-    font-size: 1.6rem;
+  h1 {
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.025em;
   }
-  .now {
-    margin-top: 4rem;
+  .pill {
+    display: inline-block;
+    padding: 0.6rem 1.25rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
   }
-  .now h2 {
-    margin-bottom: 0.75rem;
+  .pill:hover {
+    background: var(--pen);
   }
-  .now ul {
-    font-family: var(--serif);
+  .bio {
+    max-width: 38rem;
     font-size: 1.15rem;
     color: var(--ink-soft);
-    padding-left: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .work {
+    margin-top: 6rem;
+  }
+  .work h2 {
+    margin-bottom: 1.75rem;
+  }
+  .cards {
+    list-style: none;
     margin: 0;
-    max-width: var(--measure);
+    padding: 0;
   }
-  .now li::marker {
-    color: var(--pen);
+  /* A hairline and generous space between projects, so each reads as its own piece. */
+  .cards > li + li {
+    margin-top: 4.5rem;
+    padding-top: 4.5rem;
+    border-top: 1px solid var(--rule);
   }
-  @media (max-width: 44rem) {
-    .hero {
-      grid-template-columns: 1fr;
-      gap: 2.25rem;
-      padding-top: 1rem;
+  @media (max-width: 40rem) {
+    .work {
+      margin-top: 4rem;
     }
-    .hero :global(.snapshot) {
-      max-width: 10rem;
-      margin-left: 0.5rem;
+    .cards > li + li {
+      margin-top: 3rem;
+      padding-top: 3rem;
+    }
+  }
+
+  h2 {
+    font-size: 1.35rem;
+    font-weight: 400;
+  }
+  .experience {
+    margin-top: 5rem;
+  }
+  .rows {
+    list-style: none;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    font-size: 0.95rem;
+  }
+  .rows li {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: 0 1rem;
+    padding: 0.45rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .rows li:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+  .when {
+    color: var(--ink-faint);
+  }
+  .more {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .contact {
+    margin-top: 4rem;
+  }
+  .contact h2 {
+    margin-bottom: 0.5rem;
+  }
+  .contact p {
+    margin-bottom: 0.4rem;
+    color: var(--ink-soft);
+  }
+  .email {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    overflow-wrap: anywhere;
+  }
+  .links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+  }
+
+  @media (max-width: 40rem) {
+    .rows li {
+      grid-template-columns: 1fr;
     }
   }
 </style>

@@ -1,0 +1,79 @@
+---
+// A project's cover image, or a same-shaped placeholder if none exists yet.
+// Astro re-encodes the image to AVIF/WebP, which strips camera and location data.
+import { Picture } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { projectImage } from '../lib/project-images';
+
+interface Props {
+  project: CollectionEntry<'work'>;
+  loading?: 'eager' | 'lazy';
+}
+const { project, loading = 'lazy' } = Astro.props;
+const image = projectImage(project.id);
+const alt = project.data.coverAlt ?? `${project.data.title} project image`;
+---
+
+{
+  image ? (
+    <div class="cover">
+      <Picture
+        src={image}
+        alt={alt}
+        formats={['avif', 'webp']}
+        widths={[800, 1600, 2400]}
+        sizes="(min-width: 54.5rem) 52rem, calc(100vw - 2.5rem)"
+        loading={loading}
+        class="cover-img"
+      />
+    </div>
+  ) : (
+    <div class="cover cover-placeholder" aria-hidden="true">
+      <span class="ph-title">{project.data.title}</span>
+      <span class="ph-kind">{project.data.kind}</span>
+    </div>
+  )
+}
+
+<style>
+  .cover {
+    aspect-ratio: 8 / 3;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--tint);
+    /* Screenshots often have pale backgrounds; the hairline keeps the frame visible. */
+    border: 1px solid var(--rule);
+  }
+  .cover :global(picture) {
+    display: contents;
+  }
+  .cover :global(.cover-img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .cover-placeholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 1.5rem 2rem;
+    font-family: var(--serif);
+    color: var(--ink-soft);
+  }
+  .ph-title {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .ph-kind {
+    font-size: 1.05rem;
+    font-style: italic;
+  }
+  @media (max-width: 40rem) {
+    .cover {
+      aspect-ratio: 4 / 3;
+    }
+  }
+</style>

@@ -3,6 +3,8 @@ import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Note from '../../components/Note.astro';
 import Diagram from '../../components/Diagram.astro';
+import ProjectCover from '../../components/ProjectCover.astro';
+import { projectImage } from '../../lib/project-images';
 
 export async function getStaticPaths() {
   const projects = await getCollection('work');
@@ -11,7 +13,7 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const p = project.data;
-if (!project.body?.includes('<Diagram')) {
+if (!p.brief && !project.body?.includes('<Diagram')) {
   throw new Error(`${project.id}: add an architecture <Diagram name="..." alt="..." /> to the page.`);
 }
 const { Content } = await render(project);
@@ -21,6 +23,15 @@ const { Content } = await render(project);
   <article class="case wrap">
     <header class="case-head">
       <p class="crumb"><a href="/work">All projects</a></p>
+    </header>
+    {
+      projectImage(project.id) && (
+        <div class="case-cover">
+          <ProjectCover project={project} loading="eager" />
+        </div>
+      )
+    }
+    <header class="case-head">
       <h1>{p.title}</h1>
       <p class="lede">{p.summary}</p>
       {
@@ -34,13 +45,15 @@ const { Content } = await render(project);
         <div><dt>When</dt><dd>{p.period}</dd></div>
         <div><dt>Context</dt><dd>{p.context}</dd></div>
         <div><dt>My part</dt><dd>{p.role}</dd></div>
-        <div><dt>Built with</dt><dd>{p.stack.join(', ')}</dd></div>
+        {p.stack.length > 0 && <div><dt>Built with</dt><dd>{p.stack.join(', ')}</dd></div>}
       </dl>
     </header>
 
     <div class="prose">
       <Content components={{ Note, Diagram }} />
 
+      {
+        p.metrics.length > 0 && (
       <h2>Results</h2>
       <div class="table-scroll">
         <table class="results">
@@ -60,11 +73,19 @@ const { Content } = await render(project);
           </tbody>
         </table>
       </div>
+        )
+      }
 
-      <h2>What I'd do differently</h2>
-      <ul class="lessons">
-        {p.lessons.map((lesson) => <li>{lesson}</li>)}
-      </ul>
+      {
+        p.lessons.length > 0 && (
+          <>
+            <h2>What I'd do differently</h2>
+            <ul class="lessons">
+              {p.lessons.map((lesson) => <li>{lesson}</li>)}
+            </ul>
+          </>
+        )
+      }
 
       {
         p.links.length > 0 && (
@@ -86,6 +107,9 @@ const { Content } = await render(project);
   .case-head,
   .prose {
     max-width: var(--measure);
+  }
+  .case-cover {
+    margin-bottom: 2rem;
   }
   .crumb {
     font-size: 0.9rem;

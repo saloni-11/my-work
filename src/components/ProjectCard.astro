@@ -1,0 +1,94 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectCover from './ProjectCover.astro';
+
+interface Props {
+  project: CollectionEntry<'work'>;
+  eager?: boolean;
+}
+const { project, eager = false } = Astro.props;
+const p = project.data;
+const titleId = `card-${project.id}`;
+---
+
+<a class="card" href={`/work/${project.id}`} aria-labelledby={titleId}>
+  <ProjectCover project={project} loading={eager ? 'eager' : 'lazy'} />
+  <div class="meta">
+    <h3 id={titleId} class="title">{p.title}</h3>
+    {
+      p.headline && (
+        <p class="headline">
+          <span class="value">{p.headline.value}</span>
+          <span class="label">{p.headline.label}</span>
+        </p>
+      )
+    }
+  </div>
+  <p class="summary">{p.summary}</p>
+</a>
+
+<style>
+  .card {
+    display: block;
+    color: var(--ink);
+    text-decoration: none;
+    border-radius: 20px;
+  }
+  .card:focus-visible {
+    outline: 2px solid var(--pen);
+    outline-offset: 6px;
+  }
+  .card:hover :global(.cover-img),
+  .card:focus-visible :global(.cover-img) {
+    transform: scale(1.02);
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.25rem 2rem;
+    margin-top: 1.1rem;
+  }
+  .title {
+    font-size: 1.6rem;
+    font-weight: 400;
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+  .card:hover .title,
+  .card:focus-visible .title {
+    text-decoration-color: currentColor;
+  }
+  .headline {
+    margin: 0;
+    max-width: 24rem;
+    text-align: right;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--ink-faint);
+  }
+  .value {
+    display: block;
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--ink);
+  }
+  .summary {
+    margin: 0.35rem 0 0;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 40rem) {
+    .headline {
+      text-align: left;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card:hover :global(.cover-img),
+    .card:focus-visible :global(.cover-img) {
+      transform: none;
+    }
+  }
+</style>

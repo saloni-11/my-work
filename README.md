@@ -60,13 +60,13 @@ The repo has to be public for free GitHub Pages, so everything in it is visible 
 
 ## Deploying to GitHub Pages
 
-1. Create a public repo named **`saloni-11.github.io`** with no README or licence, then from this folder:
+1. Create a public repo (this one is **`saloni-11/my-work`**) with no README or licence, then from this folder:
 
    ```bash
    git init -b main
    git add -A
    git commit -m "First version of portfolio site"
-   git remote add origin https://github.com/saloni-11/saloni-11.github.io.git
+   git remote add origin https://github.com/saloni-11/my-work.git
    git push -u origin main
    ```
 

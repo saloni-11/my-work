@@ -1,5 +1,5 @@
 // Everything that appears in more than one place lives here.
-// Edit this file to change your intro, links or "currently" notes.
+// Edit this file to change your intro, links or experience list.
 
 export const site = {
   name: 'Saloni Samant',
@@ -18,10 +18,11 @@ export const site = {
   // Handwritten caption under the photo. Keep it short, or set to '' to hide it.
   photoCaption: 'usually somewhere near a retrieval bug',
 
-  // Short lines for the "Right now" block on the home page.
-  now: [
-    'Working on lending data standards at LIXI.',
-    'Rebuilding the evaluation set for my Study Companion chatbot.',
+  // The short experience list on the home page. The full timeline is on /about.
+  experience: [
+    { when: 'Aug 2025 – now', what: 'Analyst Developer, LIXI' },
+    { when: 'Sep 2024 – Jul 2025', what: 'IT Business Analyst Intern, BallR Hub' },
+    { when: 'Feb 2021 – Jan 2024', what: 'Software Developer, DbCom Systems Software' },
   ],
 
   links: {
