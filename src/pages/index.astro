@@ -16,6 +16,7 @@ const featured = (await getCollection('work', ({ data }) => data.featured)).sort
       <a class="pill" href="#contact">Get in touch</a>
     </div>
     <p class="bio">{site.statement}</p>
+    <p class="where">{site.role}, {site.location}</p>
   </section>
 
   <section class="work wrap" aria-labelledby="work-heading">
@@ -79,6 +80,9 @@ const featured = (await getCollection('work', ({ data }) => data.featured)).sort
     font-weight: 500;
     text-decoration: none;
     white-space: nowrap;
+    /* Keep the dark button when printed or saved as PDF. */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
   .pill:hover {
     background: var(--pen);
@@ -87,7 +91,11 @@ const featured = (await getCollection('work', ({ data }) => data.featured)).sort
     max-width: 38rem;
     font-size: 1.15rem;
     color: var(--ink-soft);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .where {
+    font-size: 0.95rem;
+    color: var(--ink-faint);
   }
 
   .work {

@@ -11,7 +11,7 @@ export const site = {
   statement:
     'I build LLM and ML systems for financial services, and the evaluation and guardrails that make them safe to rely on.',
 
-  role: 'Analyst Developer at LIXI, Australia’s lending standards body',
+  role: 'Analyst Developer at LIXI',
   location: 'Sydney',
   workRights: 'Full work rights until February 2029. No sponsorship needed.',
 

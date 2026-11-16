@@ -91,11 +91,16 @@ const nav = [
     </main>
 
     <footer class="site-footer wrap">
-      <ul class="footer-links">
-        <li><a href={`mailto:${site.links.email}`}>{site.links.email}</a></li>
-        <li><a href={site.links.linkedin} rel="me">LinkedIn</a></li>
-        <li><a href={site.links.github} rel="me">GitHub</a></li>
-      </ul>
+      {
+        // The home page has its own Contact section right above, so skip the repeat.
+        !hideName && (
+          <ul class="footer-links">
+            <li><a href={`mailto:${site.links.email}`}>{site.links.email}</a></li>
+            <li><a href={site.links.linkedin} rel="me">LinkedIn</a></li>
+            <li><a href={site.links.github} rel="me">GitHub</a></li>
+          </ul>
+        )
+      }
       <p class="small">Written by hand, built with Astro, hosted on GitHub Pages.</p>
     </footer>
 
