@@ -81,7 +81,7 @@ Footer
 - Off-white background, quiet and calm, with tones taken from nature. Update the tokens in `src/styles/global.css`:
   - paper `#fbfbf8`, raised `#ffffff`, ink `#1c2420`, soft ink `#4c5751`, faint ink `#737d77`, rule `#e1e5de`, accent (links, focus) `#2f6b4f`, placeholder tint `#eef2ec`
   - Dark mode keeps the same structure: paper `#141815`, raised `#1b201c`, ink `#e6ebe7`, soft `#b4beb8`, faint `#8d978f`, rule `#2c332e`, accent `#8cc5a5`, placeholder tint `#202822`
-- Fonts stay as installed: Newsreader for the name, headings and project titles; Hanken Grotesk for everything else.
+- Fonts: Schibsted Grotesk for everything on the home page, including the name, section labels and project titles (changed from the original Newsreader/Hanken Grotesk plan after review). Newsreader stays for case-study headings and long-form text.
 - No gradients, shadows or decorative animation. The images carry the visual interest.
 
 ## Also fix

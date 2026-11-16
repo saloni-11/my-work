@@ -1,6 +1,6 @@
 @import '@fontsource-variable/newsreader/opsz.css';
 @import '@fontsource-variable/newsreader/opsz-italic.css';
-@import '@fontsource-variable/hanken-grotesk';
+@import '@fontsource-variable/schibsted-grotesk';
 @import '@fontsource/kalam/400.css';
 
 /* ---------- Tokens ---------- */
@@ -17,7 +17,7 @@
   --tape: rgba(214, 205, 150, 0.6);
 
   --serif: 'Newsreader Variable', 'Iowan Old Style', Georgia, serif;
-  --sans: 'Hanken Grotesk Variable', system-ui, sans-serif;
+  --sans: 'Schibsted Grotesk Variable', system-ui, sans-serif;
   --hand: 'Kalam', 'Segoe Print', cursive;
 
   --measure: 38rem;

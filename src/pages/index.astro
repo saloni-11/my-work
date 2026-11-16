@@ -64,11 +64,13 @@ const featured = (await getCollection('work', ({ data }) => data.featured)).sort
     gap: 1rem 2rem;
     margin-bottom: 1.25rem;
   }
+  /* Same family as the bio so the intro reads as one piece. */
   h1 {
-    font-size: clamp(2.8rem, 7vw, 5rem);
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: -0.025em;
+    font-family: var(--sans);
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
   }
   .pill {
     display: inline-block;
@@ -125,9 +127,14 @@ const featured = (await getCollection('work', ({ data }) => data.featured)).sort
     }
   }
 
+  /* Section labels: small and quiet, in the same family as the name. */
   h2 {
-    font-size: 1.35rem;
-    font-weight: 400;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
   }
   .experience {
     margin-top: 5rem;
