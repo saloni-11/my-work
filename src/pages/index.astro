@@ -20,7 +20,7 @@ const featured = (await getCollection('work', ({ data }) => data.featured)).sort
   </section>
 
   <section class="work wrap" aria-labelledby="work-heading">
-    <h2 id="work-heading">My top work</h2>
+    <h2 id="work-heading">Selected work</h2>
     <ul class="cards">
       {featured.map((project, i) => <li><ProjectCard project={project} eager={i === 0} /></li>)}
     </ul>
